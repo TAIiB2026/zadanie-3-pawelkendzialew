@@ -1,0 +1,52 @@
+<h3>Dodaj książkę</h3>
+
+<form #f="ngForm" (ngSubmit)="submit()">
+  <div>
+    <label>Tytuł:
+      <input type="text"
+             name="title"
+             #title="ngModel"
+             [(ngModel)]="model.title"
+             required
+             minlength="2"
+             maxlength="100" />
+    </label>
+    <div class="errors" *ngIf="title.invalid && title.touched">
+      <small *ngIf="title.errors?.['required']">Tytuł jest wymagany.</small>
+      <small *ngIf="title.errors?.['minlength']">Tytuł musi mieć co najmniej 2 znaki.</small>
+      <small *ngIf="title.errors?.['maxlength']">Tytuł nie może mieć więcej niż 100 znaków.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Liczba stron:
+      <input type="number"
+             name="pages"
+             #pages="ngModel"
+             [(ngModel)]="model.pages"
+             required
+             min="1"
+             max="10000" />
+    </label>
+    <div class="errors" *ngIf="pages.invalid && pages.touched">
+      <small *ngIf="pages.errors?.['required']">Liczba stron jest wymagana.</small>
+      <small *ngIf="pages.errors?.['min']">Liczba stron musi być większa od 0.</small>
+      <small *ngIf="pages.errors?.['max']">Liczba stron nie może przekraczać 10000.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Data wydania:
+      <input type="date"
+             name="publishDate"
+             #publishDate="ngModel"
+             [(ngModel)]="model.publishDate"
+             required />
+    </label>
+    <div class="errors" *ngIf="publishDate.invalid && publishDate.touched">
+      <small *ngIf="publishDate.errors?.['required']">Data wydania jest wymagana.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="f.invalid">Dodaj</button>
+</form>
